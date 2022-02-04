@@ -1,0 +1,38 @@
+const onSubmit = async (data) => {
+    console.log("login page",data);
+    await loginUser(data)
+      .then((res) =>{
+        console.log("login response" , res);
+       if(res && res.data.status==="success"){
+          if(res.data.token){
+            localStorage.setItem("token", JSON.stringify(res.data.token));
+            localStorage.setItem("username", res.data.data.username);
+            localStorage.setItem("id", res.data.data._id);
+            loginSuccess()
+            // alert("login Successfully");
+            navigate("/default-dashboard");
+          }
+        }
+        // else{
+        //   alert("login failed");
+        // }
+      })
+      .catch((err)=> {
+        console.log(err,"+++++++++");
+        loginError()
+        // alert("password invalid");
+        
+
+        // setLoginErr(true);
+        // loginErr && (
+        //   Swal.fire({
+        //     icon: 'error',
+        //     title: 'Login Failed...',
+        //     text: 'Password is not correct!!',
+        //     footer: '<a href="#">Why do I have this issue?</a>'
+        //   })
+        //  )
+
+      });
+
+    }
